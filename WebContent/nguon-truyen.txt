@@ -1,0 +1,53 @@
+/* 0 */
+{
+    "_id" : ObjectId("53f46712e8ab621d7dde5cc1"),
+    "manguon" : "WEBTRUYEN_COM",
+    "urlgoc" : "http://webtruyen.com/",
+    "urlindex" : "http://webtruyen.com/",
+    "kieuindex" : "trong-selector",
+    "divchapter" : ".gridlistchapter",
+    "divpage" : ".pagination-centered .active + li",
+    "divtitle" : ".detailchapter",
+    "divcontent" : "#detailcontent",
+    "kieuurlgoc" : "tu-tao"
+}
+
+/* 1 */
+{
+    "_id" : ObjectId("53feaa6c5ea692b331dc3f51"),
+    "manguon" : "TRUYEN_HIXX_INFO",
+    "urlgoc" : "http://truyen.hixx.info/",
+    "kieuindex" : "trong-selector",
+    "divchapter" : ".bt_pagination ~ .danh_sach",
+    "divpage" : ".bt_pagination .next",
+    "divtitle" : ".path",
+    "divcontent" : ".chi_tiet",
+    "kieuurlgoc" : "google-search"
+}
+
+/* 2 */
+{
+    "_id" : ObjectId("540d5a646e369ec3f22e894d"),
+    "manguon" : "TRUYENYY_COM",
+    "urlgoc" : "https://truyenyy.com/",
+    "urlindex" : "https://truyenyy.com/truyen/",
+    "kieuindex" : "tu-tao",
+    "urldoc" : "http://truyenyy.com/doc-truyen/",
+    "tiento" : "chuong-",
+    "divtitle" : "h1",
+    "divcontent" : "#noidungtruyen",
+    "kieuurlgoc" : "tu-tao"
+}
+
+/* 3 */
+{
+    "_id" : ObjectId("54262b3faf42cdf0cfd8c97b"),
+    "manguon" : "ISACH_INFO",
+    "urlgoc" : "http://isach.info/",
+    "kieuindex" : "trong-selector",
+    "divchapter" : "div.right_menu_item",
+    "divpage" : "ko co",
+    "divtitle" : ".story_chapter",
+    "divcontent" : ".story_text",
+    "kieuurlgoc" : "google-search"
+}

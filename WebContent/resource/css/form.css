@@ -1,0 +1,72 @@
+.tieude {
+	font-size: 14px;
+	font-weight:bold;
+	font-family: Verdana,Arial,sans-serif;
+	padding: 1px 1px 1px 1px;
+	margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+form label{
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 12px;
+}
+.label{
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 12px;
+	padding-right: 20px;
+}
+table.thongke tr td{
+	margin-left: 10px;
+}
+
+table{
+	font-size: 14px;
+}
+input[type=submit] {
+	position: relative;
+	vertical-align: top;
+	padding: 0;
+	font-size: 12px;
+	font-family: Verdana,Arial,sans-serif;
+	color: white;
+	text-align: center;
+	background: #3498db;
+	border-bottom: 5px solid #3498db;
+	border-top: 5px solid #3498db;
+	border-left: 8px solid #3498db;
+	border-right: 8px solid #3498db;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover{
+	top: 1px;
+	outline: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+input[type=button] {
+	position: relative;
+	vertical-align: top;
+	padding: 0;
+	font-size: 12px;
+	font-family: Verdana,Arial,sans-serif;
+	color: white;
+	text-align: center;
+	background: #3498db;
+	border-bottom: 5px solid #3498db;
+	border-top: 5px solid #3498db;
+	border-left: 8px solid #3498db;
+	border-right: 8px solid #3498db;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+input[type=button]:hover{
+	top: 1px;
+	outline: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}

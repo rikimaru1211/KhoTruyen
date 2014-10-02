@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	      http://www.springframework.org/schema/aop
+	      http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<bean id="SpringApplicationContext" class="com.tungct.utils.SpringApplicationContext"></bean>
+	
+	<!-- #############################################
+     ##########      CAU HINH BO _CLASS    #######
+     #############################################-->
+	     
+	<!-- ########### MAPPING ###########-->
+	
+	<bean id="mappingContext" class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+ 
+ 	<bean id="defaultMongoTypeMapper" class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+			<constructor-arg name="typeKey"><null/></constructor-arg>
+ 	</bean>
+ 	
+ 	<!-- ########### MAPPING-CONVERTER ###########-->
+ 	
+ 	<bean id="mappingMongoConverter-Truyen" class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory-Truyen" />
+		<constructor-arg name="mappingContext" ref="mappingContext" />
+		<property name="typeMapper" ref="defaultMongoTypeMapper" />
+ 	</bean>
+ 	
+ 	
+ 	<!--###########  Cau hinh Bo converter  ##############-->   
+ 	
+	<bean id="NguonTruyen-Dao" class="com.tungct.dao.luutru.NguonTruyenDaoImpl">
+		<property name="mongoTemplate" ref="NguonTruyen-MongoTemplate" />
+	</bean>
+	<bean id="NguonTruyen-MongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory-Truyen" />
+		<constructor-arg name="mongoConverter" ref="mappingMongoConverter-Truyen"/>
+	</bean>
+	
+	<bean id="Truyen-Dao" class="com.tungct.dao.luutru.TruyenDaoImpl">
+		<property name="mongoTemplate" ref="Truyen-MongoTemplate" />
+	</bean>
+	<bean id="Truyen-MongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory-Truyen" />
+		<constructor-arg name="mongoConverter" ref="mappingMongoConverter-Truyen"/>
+	</bean>
+	
+	<bean id="ChuongTruyen-Dao" class="com.tungct.dao.luutru.ChuongTruyenDaoImpl">
+		<property name="mongoTemplate" ref="ChuongTruyen-MongoTemplate" />
+	</bean>
+	<bean id="ChuongTruyen-MongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory-Truyen" />
+		<constructor-arg name="mongoConverter" ref="mappingMongoConverter-Truyen"/>
+	</bean>
+	
+	
+</beans>

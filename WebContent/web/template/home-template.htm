@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8">
+    <title></title>
+    $imports
+    <link href="$context/resource/css/menu_temp.css" rel="stylesheet" type="text/css"/>
+    <link href="$context/resource/css/form.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="$context/resource/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+    function openPopup(url,name,width,height){
+ 		if(width === undefined ){
+    		width = 750;
+	 	}
+     	if(height === undefined){
+     		height = 550;
+     	}
+     	var left = parseInt((screen.availWidth/2) - (width/2));
+     	var top = parseInt((screen.availHeight/2) - (height/2));
+         
+     	msgWindow=open(url, name,'width='+width+', height='+height+',left=' + left + ',top=' + top + ',screenX=' + left + ',screenY=' + top+', toolbar=0, location=0, directories=0, status=1, menubar=0, scrollbars=1, resizable=1, fullscreen=no,titlebar=yes');
+  		if (msgWindow.opener == null) msgWindow.opener = self;
+ 	}
+ 	</script>
+  </head>
+  <body>
+  	
+  	<div style="background:#DCDCDC;">
+  		<table style="background:#DCDCDC; width:1300px">
+		<tr>
+		  	<td class="logo_header" style="width:200px">
+		  		<a href="$context/index.htm"><img style="height:50px; width:200px;" src="$context/resource/images/galaxy.png" /></a>
+		  	</td>
+		  	<td class="cssmenu" valign="bottom" style="width:800px">
+		  		#if ($rootMenu) 
+		     		#writeMenu($rootMenu) 
+		   		#end
+		  	</td>
+		  	<td class="user_header" valign="bottom" style="width:320px">
+		  		<span style="font-size:14px;">Xin chào</span>
+		  	</td>
+		</tr>
+	  	</table>
+  	</div>
+  	<div class="redbar"></div>
+  	<div class="content">
+		<div class="NoiDung">	  			
+			#parse($path)
+		</div>
+	</div>
+	<div class="footer">
+		<div style="float:left;">rikimaru1211</div>
+		<div style="float:right;">
+			KhoTruyen
+		</div>
+	</div>
+  </body>
+</html>

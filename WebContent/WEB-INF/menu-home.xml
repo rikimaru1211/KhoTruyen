@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<menu>	
+	<menu label="Nhập liệu" path="/web/"/>
+	<menu label="Hiển thị" path="/web/">
+		<menu label="Danh sách truyện" path="/web/danh-sach-truyen-view.htm"/>
+	</menu>
+</menu>

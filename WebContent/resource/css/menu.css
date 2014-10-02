@@ -1,0 +1,108 @@
+.header{
+	float: left;
+	height: 70px;
+	width: 100%;
+	background-color: #024997;
+}
+
+.content{
+	float: left;
+	min-height:85%;
+	width: 100%;
+	background-color: white;
+}
+
+.footer{
+	float: left;
+	height: 100px;
+	width: 100%;
+	background-color: #024997;
+}
+
+body{
+	margin: 0 auto;
+	border: 0;
+	background: white;
+	font-family: Arial,sans-serif;
+	font-size: 14px;
+}
+table{
+	font-size: 14px;
+}
+.footer a {
+	font-family:Myriad pro,sans-serif;
+	text-decoration: none;
+	color:white;
+	font-size: 12px;
+}
+.MenuDoc{
+	float: left;
+	width: 300px;
+	min-height: 350px;
+	background-color: white;
+	font-size:16px;
+	font-family: Arial;
+}
+.MenuDoc ul{
+	list-style: none;
+}
+.MenuDoc li.active a{
+	cursor: default;
+	color: #000000;
+}
+.ngancach{
+	margin-bottom:10px;
+	margin-top:10px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	border-top:1px solid #024997 ;
+	width:230px;
+}
+.MenuDoc li a{
+	text-decoration: none;
+	color:#024997;
+}
+.MenuDoc li a:hover, #vertmenu ul li a:focus {
+	color: #000000;
+}
+#nav li a.selected {
+	color: #000000;
+}
+
+#nav li a{
+	text-decoration: none;
+	color:#024997;
+}
+#nav li a:hover, #vertmenu ul li a:focus {
+	color: #000000;
+}
+.MenuDoc li a.active {
+	color: #000000;
+}
+.nav,.first{
+	margin-left:-30px;
+	margin-top:10px;
+	font-size: 14px;
+}
+.nav,.first li#menu2{
+	margin-bottom: 10px;
+}
+.border{
+	padding-left: 20px;
+}
+.NoiDung{
+	float:left;
+	margin-top:20px;
+	margin-left:50px;
+	width: 900px;
+	min-height: 650px;
+	border-left:1px solid #024997 ;
+	margin-bottom: 20px;	
+}
+.NoiDungHome{
+	width: 100%;
+	margin-top:20px;
+	min-height: 500px;
+	margin-bottom: 20px;	
+}
