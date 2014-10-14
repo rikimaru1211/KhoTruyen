@@ -23,6 +23,8 @@ import org.apache.click.control.Submit;
 import org.apache.click.control.Table;
 import org.apache.click.control.TextField;
 import org.apache.click.dataprovider.PagingDataProvider;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -55,7 +57,8 @@ public class DanhSachTruyenView extends HomeTemplate {
 	private PageLink linkThemMoi = new PageLink(PopupThemSuaTruyen.class);
 	private PageLink linkNoiDung = new PageLink(DanhSachChuongView.class);
 	private ActionLink linkGetTxt = new ActionLink("linkGetTxt", "txt", this, "onGetTxtClick");
-	private ActionLink linkGetEpub = new ActionLink("linkGetEpub", "epub", this, "onGetEpubClick");
+	private ActionLink linkGetEpub = new ActionLink("linkGetEpub", "epub", this, "onGetEpubv2Click");
+	private ActionLink linkTest = new ActionLink("linkTest", "test", this, "onTestClick");
 	
 	public DanhSachTruyenView(){
 		
@@ -69,6 +72,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 		addControl(table);
 		addControl(linkGetTxt);
 		addControl(linkGetEpub);
+		addControl(linkTest);
 		
 		seNguon.add(new Option("", ""));
 		try {
@@ -138,6 +142,17 @@ public class DanhSachTruyenView extends HomeTemplate {
 				linkGetEpub.setParameter(Truyen.MA_TRUYEN, obj.getMatruyen());
 				linkGetEpub.setParameter(Truyen.TEN, obj.getTen());
 				return linkGetEpub.toString();
+			}
+		});
+		table.addColumn(column);
+		
+		column = new Column("test", "test");
+		column.setDecorator(new Decorator() {
+			@Override
+			public String render(Object object, Context context) {
+				Truyen obj = (Truyen) object;
+				linkTest.setParameter(Truyen.MA_TRUYEN, obj.getMatruyen());
+				return linkTest.toString();
 			}
 		});
 		table.addColumn(column);
@@ -236,6 +251,50 @@ public class DanhSachTruyenView extends HomeTemplate {
 				
 				out.flush();
 				out.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean onGetEpubv2Click(){
+		try {
+			String sMaTruyen = linkGetEpub.getParameter(Truyen.MA_TRUYEN);
+			String sTen = linkGetEpub.getParameter(Truyen.TEN);
+			System.out.println("sMaTruyen: " + sMaTruyen);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", true, 0, 0);
+			if(lst != null && !lst.isEmpty()){
+				HttpServletResponse response = getContext().getResponse();
+				response.setContentType("application/octet-stream");
+				response.setHeader("Content-Disposition", "attached; filename="+sTen+".epub");
+				response.setCharacterEncoding("UTF-8");
+				
+				OutputStream out = response.getOutputStream();
+				
+				EpubFunction.CreateEpubFileV2(sTen, lst, out);
+				
+				out.flush();
+				out.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean onTestClick(){
+		try {
+			String sMaTruyen = linkTest.getParameter(Truyen.MA_TRUYEN);
+			System.out.println("sMaTruyen: " + sMaTruyen);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", true, 0, 1);
+			if(lst != null && lst.size() > 0){
+				ChuongTruyen vChuongTruyen = lst.get(0);
+				System.out.println(vChuongTruyen.getUrlgoc());
+				Document doc = Jsoup.connect(vChuongTruyen.getUrlgoc()).get();
+				System.out.println(doc.toString());
+			} else {
+				System.out.println("khong tim thay");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

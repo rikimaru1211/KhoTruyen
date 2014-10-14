@@ -1,9 +1,15 @@
 package com.tungct.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import com.tungct.domain.luutru.ChuongTruyen;
 
@@ -170,7 +176,7 @@ public class EpubFunction {
                 if(!HelpFunction.isEmpty(sNoiDung)){
                 	
                     String sTenFile = "/chuong"+index+".xhtml";
-                	EpubFunction.CreateFile(sRoot + EpubFile.TEXT +  sTenFile, sTieuDe + "\n\n" + sNoiDung + "\n");
+                	EpubFunction.CreateFile(sRoot + EpubFile.TEXT +  sTenFile, sNoiDung);
                 	
                 	HelpFunction.writeUTF8Text(sMapFile, EpubFunction.CreateMapFileItem(index, "Text" + sTenFile ), true);
                 	HelpFunction.writeUTF8Text(sIndexFile, EpubFunction.CreateIndexFileItem(index, sTieuDe, "Text" + sTenFile ), true);
@@ -191,4 +197,69 @@ public class EpubFunction {
         
         System.out.println("CreateEpubFile() - ket thuc");
 	}
+	
+	public static void CreateEpubFileV2(String tentruyen, List<ChuongTruyen> lstChuong, OutputStream out){
+		try {
+			ZipOutputStream zip = new ZipOutputStream(out);
+			addFileToZip(EpubFile.MINETYPE, EpubFile.MINETYPE_CONTENT, zip);
+			addFileToZip(EpubFile.CONTAINER_XML, EpubFile.CONTAINER_XML_CONTENT, zip);
+			
+			String id = UUID.randomUUID().toString();
+			StringBuilder sMapFile = new StringBuilder(EpubFunction.CreateMapFileHeader(id, tentruyen));
+			StringBuilder sIndexFile = new StringBuilder(EpubFunction.CreateIndexFileHeader(id, tentruyen));
+			
+			for (ChuongTruyen vChuong : lstChuong) {
+	            try {
+	                String sTieuDe = vChuong.getTieude();
+	                StringBuilder strNoiDung = new StringBuilder();
+	                strNoiDung.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+				                		"<head>\n" + 
+				                		"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><title>truyen</title>\n" + 
+				                		"</head>\n" + 
+				                		"<body>");
+	                strNoiDung.append("<p>").append(sTieuDe).append("</p>");
+	                strNoiDung.append("<p>").append(vChuong.getNoidung().replace("\n", "</p><p>")).append("</p>");
+	                strNoiDung.append("</body>\n" + 
+	                					"</html>");
+	                
+	                String sNoiDung = strNoiDung.toString();
+	                int index = vChuong.getStt();
+	                if(!HelpFunction.isEmpty(sNoiDung)){
+	                    String sTenFile = "/chuong"+index+".xhtml";
+	                    addFileToZip(EpubFile.TEXT +  sTenFile, sNoiDung, zip);
+	                    sMapFile.append(EpubFunction.CreateMapFileItem(index, "Text" + sTenFile));
+	                    sIndexFile.append(EpubFunction.CreateIndexFileItem(index, sTieuDe, "Text" + sTenFile));
+	                }
+	            }catch (Exception e) {
+	                System.out.println("failed to connect");
+	            }
+	        }
+			
+			sMapFile.append(EpubFunction.CreateMapFileEnd(lstChuong.size()));
+            sIndexFile.append( EpubFunction.CreateIndexFileEnd());
+			
+            addFileToZip(EpubFile.CONTENT_OPF, sMapFile.toString(), zip);
+            addFileToZip(EpubFile.TOC_NCX, sIndexFile.toString(), zip);
+            
+			zip.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+        System.out.println("CreateEpubFile() - ket thuc");
+	}
+	
+    private static void addFileToZip(String srcFile, String sNoiDung, ZipOutputStream zip) throws IOException {
+        byte[] buf = new byte[1024];
+        int len;
+        InputStream in = new ByteArrayInputStream(sNoiDung.getBytes(StandardCharsets.UTF_8));
+        
+        ZipEntry zipentry = new ZipEntry(srcFile);
+        zip.putNextEntry(zipentry);
+        while ((len = in.read(buf)) > 0) {
+            zip.write(buf, 0, len);
+        }
+        
+        in.close();
+    }
 }
