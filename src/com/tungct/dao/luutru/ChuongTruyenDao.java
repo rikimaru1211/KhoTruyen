@@ -16,4 +16,6 @@ public interface ChuongTruyenDao {
 	public List<ChuongTruyen> SelectByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa, boolean bSort, int nFirstRow, int nPageSize) throws Exception;
 	public Long CountByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa) throws Exception;
 	
+	public void DeleteByMaTruyen(String sMaTruyen) throws Exception;
+	
 }

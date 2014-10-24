@@ -107,4 +107,11 @@ public class ChuongTruyenDaoImpl implements ChuongTruyenDao{
 		
 		return this.mongoTemplate.count(query, CollectionName());
 	}
+	
+	@Override
+	public void DeleteByMaTruyen(String sMaTruyen) throws Exception {
+		Query query = new Query(Criteria.where(ChuongTruyen.MA_TRUYEN).is(sMaTruyen));
+		this.mongoTemplate.setWriteConcern(WriteConcern.ACKNOWLEDGED);
+		this.mongoTemplate.remove(query, CollectionName());
+	}
 }

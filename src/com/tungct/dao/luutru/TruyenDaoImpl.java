@@ -56,6 +56,13 @@ public class TruyenDaoImpl implements TruyenDao{
 	}
 	
 	@Override
+	public void DeleteByMaTruyen(String sMaTruyen) throws Exception {
+		Query query = new Query(Criteria.where(Truyen.MA_TRUYEN).is(sMaTruyen));
+		this.mongoTemplate.setWriteConcern(WriteConcern.ACKNOWLEDGED);
+		this.mongoTemplate.remove(query, CollectionName());
+	}
+	
+	@Override
 	public Truyen SelectByID(String id) throws Exception {
 		Query query = new Query(Criteria.where(Truyen.ID).is(new ObjectId(id)));
 		Truyen vTruyen = null;
@@ -118,4 +125,5 @@ public class TruyenDaoImpl implements TruyenDao{
 		
 		return this.mongoTemplate.count(query, CollectionName());
 	}
+
 }

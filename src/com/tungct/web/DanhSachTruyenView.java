@@ -38,6 +38,7 @@ import com.tungct.domain.luutru.ChuongTruyen;
 import com.tungct.domain.luutru.NguonTruyen;
 import com.tungct.domain.luutru.Truyen;
 import com.tungct.utils.EpubFunction;
+import com.tungct.utils.HelpFunction;
 import com.tungct.utils.ZipFunction;
 import com.tungct.web.template.HomeTemplate;
 
@@ -59,6 +60,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 	private ActionLink linkGetTxt = new ActionLink("linkGetTxt", "txt", this, "onGetTxtClick");
 	private ActionLink linkGetEpub = new ActionLink("linkGetEpub", "epub", this, "onGetEpubv2Click");
 	private ActionLink linkTest = new ActionLink("linkTest", "test", this, "onTestClick");
+	private ActionLink linkDelete = new ActionLink("linkDelete", "delete", this, "onDeleteClick");
 	
 	public DanhSachTruyenView(){
 		
@@ -68,11 +70,19 @@ public class DanhSachTruyenView extends HomeTemplate {
 		nguontruyenDao = (NguonTruyenDaoImpl) appContext.getBean("NguonTruyen-Dao");
 		chuongtruyenDao = (ChuongTruyenDaoImpl) appContext.getBean("ChuongTruyen-Dao");
 		
+		String sThongBao = (String) getContext().getSessionAttribute("ThongBao");
+		if(!HelpFunction.isEmpty(sThongBao)){
+			addModel("ThongBao", sThongBao);
+			getContext().removeSessionAttribute("ThongBao");
+		}
+		
 		addControl(form);
 		addControl(table);
 		addControl(linkGetTxt);
 		addControl(linkGetEpub);
 		addControl(linkTest);
+		addControl(linkDelete);
+		linkDelete.setAttribute("onclick", "return window.confirm('Đồng ý xóa?');");
 		
 		seNguon.add(new Option("", ""));
 		try {
@@ -153,6 +163,17 @@ public class DanhSachTruyenView extends HomeTemplate {
 				Truyen obj = (Truyen) object;
 				linkTest.setParameter(Truyen.MA_TRUYEN, obj.getMatruyen());
 				return linkTest.toString();
+			}
+		});
+		table.addColumn(column);
+		
+		column = new Column("delete", "delete");
+		column.setDecorator(new Decorator() {
+			@Override
+			public String render(Object object, Context context) {
+				Truyen obj = (Truyen) object;
+				linkDelete.setParameter(Truyen.MA_TRUYEN, obj.getMatruyen());
+				return linkDelete.toString();
 			}
 		});
 		table.addColumn(column);
@@ -299,6 +320,21 @@ public class DanhSachTruyenView extends HomeTemplate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
+	}
+	
+	public boolean onDeleteClick(){
+		String sMaTruyen = linkDelete.getParameter(Truyen.MA_TRUYEN);
+		try {
+			System.out.println("sMaTruyen: " + sMaTruyen);
+			chuongtruyenDao.DeleteByMaTruyen(sMaTruyen);
+			truyenDao.DeleteByMaTruyen(sMaTruyen);
+			getContext().setSessionAttribute("ThongBao", "Xóa thành công truyện: " + sMaTruyen);
+		} catch (Exception e) {
+			getContext().setSessionAttribute("ThongBao", "Có lỗi xảy ra khi xóa truyện: " + sMaTruyen);
+			e.printStackTrace();
+		}
+		setRedirect(this.getClass());
 		return false;
 	}
 }

@@ -10,6 +10,8 @@ public interface TruyenDao {
 	public void update(Truyen vTruyen) throws Exception;
 	public void delete(String id) throws Exception;
 	
+	public void DeleteByMaTruyen(String sMaTruyen) throws Exception;
+	
 	public Truyen SelectByID(String id) throws Exception;
 	public Truyen SelectByMa(String sMaTruyen) throws Exception;
 	public Long Count() throws Exception;
