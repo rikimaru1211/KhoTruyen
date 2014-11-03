@@ -23,7 +23,7 @@ public class test {
 //	        String id1 = br.readLine();
 			//			 543c8fcbccf2ed7626d89bdb
 			//			 543c8fccccf2ed7626d89bdc
-			String id = "543c8fdcccf2ed7626d89c38";
+			String id = "5449d91dccf2c7c14e31a1a9";
 			
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 			    public void run() { System.out.println("end"); }
@@ -38,9 +38,16 @@ public class test {
 				int n = arrNoiDung.length;
 				System.out.println(n);Thread.sleep(2000);
 				String sLine = "";
+				Integer nSkip = 0;
+				try {
+					String skip = br.readLine();
+					nSkip = Integer.parseInt(skip);
+				} catch (Exception e) {
+					nSkip = 0;
+				}
 				for (int i = 0; i < n; i++) {
-//					if(i < 380)
-//						continue;
+					if(i < nSkip)
+						continue;
 					sLine = arrNoiDung[i];
 					if(!HelpFunction.isEmpty(sLine.trim())){
 						System.out.print("\n");

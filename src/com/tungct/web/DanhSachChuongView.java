@@ -221,7 +221,8 @@ public class DanhSachChuongView extends HomeTemplate {
 						System.out.println(i);
 						ChuongTruyen cTemp = lstTruyen.get(i);
 						ChuongTruyen cUpdate = null;
-						if(cTemp.getTieude() == null || cTemp.getTieude().equals("- Chương 18: Phá Thiên")){
+						if(cTemp.getTieude() == null || cTemp.getTieude().equals("- Chương 18: Phá Thiên")
+								|| cTemp.getTieude().equals("Chương thứ yyy: Ra đảo")){
 							try {
 								cUpdate = noidungchapterDao.GetNoiDung(cTemp.getStt(), cTemp.getUrlgoc());
 							} catch (Exception e) {
@@ -235,7 +236,8 @@ public class DanhSachChuongView extends HomeTemplate {
 						if(cUpdate == null){
 							System.out.println("chap null");
 							Thread.sleep(60000);
-						} else if(cUpdate.getTieude().equals("- Chương 18: Phá Thiên")){
+						} else if(cUpdate.getTieude().equals("- Chương 18: Phá Thiên") 
+								|| cUpdate.getTieude().equals("Chương thứ yyy: Ra đảo")){
 							Thread.sleep(90000);
 						} else {
 							cUpdate.set_id(cTemp.get_id());

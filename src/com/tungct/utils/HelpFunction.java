@@ -9,10 +9,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 //import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class HelpFunction {
@@ -66,18 +67,19 @@ public class HelpFunction {
 	}
 	
     public static boolean UrlHopLe(String Url){
-        // cách 1:
+        /*// cách 1:
         try {
             URL url = new URL(Url);
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
             huc.setRequestMethod("HEAD");
+            System.out.println(huc.getResponseCode());
             return (huc.getResponseCode() == HttpURLConnection.HTTP_OK);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }
+        }*/
           
-        /*// cách 2:
+       /* // cách 2:
         try {
             URL url = new URL(Url);
             url.openStream();
@@ -86,6 +88,25 @@ public class HelpFunction {
         } catch (IOException e) {
             return false;
         }*/
+    	
+    	// cách 3:
+    	try {
+            
+            Document doc = Jsoup.connect(Url).userAgent("Mozilla").ignoreHttpErrors(true).timeout(0).get();
+            if(doc == null)
+            	return false;
+            String sTitle = doc.head().text();
+            System.out.println(sTitle);
+            if(!sTitle.toLowerCase().contains("lỗi 404")){
+            	return true;
+            } else {
+            	return false;
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     
     public static void SplitFile(String sTenFile, int nKB)throws FileNotFoundException, UnsupportedEncodingException, IOException{

@@ -1,0 +1,5 @@
+db.ChuongTruyen.find({matruyen:"TRUYEN_HIXX_INFO_than-y-thanh-thu"}).forEach(function(doc){
+    if(doc.noidung.length < 1000){
+        print(doc.stt + " - " + doc.tieude)
+    }
+})
