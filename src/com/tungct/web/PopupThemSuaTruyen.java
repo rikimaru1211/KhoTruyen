@@ -204,7 +204,15 @@ public class PopupThemSuaTruyen extends org.apache.click.Page {
 									sLink = vNguonTruyen.getUrlgoc() + sLink;
 									System.out.println(sLink);
 								}
-								vChuongTruyen = noidungchapterDao.GetNoiDung(i, sLink);
+								
+								if(vNguonTruyen.getManguon().equalsIgnoreCase("TRUYENYY_COM")){
+									vChuongTruyen = new ChuongTruyen();
+									vChuongTruyen.setUrlgoc(sLink);
+									vChuongTruyen.setStt(i);
+									vChuongTruyen.setTieude("Chương thứ yyy: Ra đảo");
+								} else {
+									vChuongTruyen = noidungchapterDao.GetNoiDung(i, sLink);
+								}
 							} catch (Exception e) {
 								e.printStackTrace();
 								Thread.sleep(30000);

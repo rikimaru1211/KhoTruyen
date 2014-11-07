@@ -238,7 +238,7 @@ public class DanhSachChuongView extends HomeTemplate {
 							Thread.sleep(60000);
 						} else if(cUpdate.getTieude().equals("- Chương 18: Phá Thiên") 
 								|| cUpdate.getTieude().equals("Chương thứ yyy: Ra đảo")){
-							Thread.sleep(90000);
+							Thread.sleep(120000);
 						} else {
 							cUpdate.set_id(cTemp.get_id());
 							cUpdate.setMatruyen(cTemp.getMatruyen());
