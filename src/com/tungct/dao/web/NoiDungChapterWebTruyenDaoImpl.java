@@ -54,6 +54,8 @@ public class NoiDungChapterWebTruyenDaoImpl implements NoiDungChapterDao{
         if(doc == null)
         	doc = Jsoup.connect(URL).get();
         
+//        System.out.println(doc.toString());
+        
 		Element tieude = doc.select(SelectorTitle).first();
 		if(tieude != null){
 			sTieuDe = tieude.ownText();

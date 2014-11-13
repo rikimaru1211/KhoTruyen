@@ -13,7 +13,7 @@ public interface ChuongTruyenDao {
 	public ChuongTruyen SelectByID(String id) throws Exception;
 	public Long Count() throws Exception;
 	
-	public List<ChuongTruyen> SelectByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa, boolean bSort, int nFirstRow, int nPageSize) throws Exception;
+	public List<ChuongTruyen> SelectByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa, List<String> lstField, boolean bSort, int nFirstRow, int nPageSize) throws Exception;
 	public Long CountByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa) throws Exception;
 	
 	public void DeleteByMaTruyen(String sMaTruyen) throws Exception;

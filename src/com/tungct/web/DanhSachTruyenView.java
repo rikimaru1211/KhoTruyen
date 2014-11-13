@@ -219,7 +219,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 			String sMaTruyen = linkGetTxt.getParameter(Truyen.MA_TRUYEN);
 			String sTen = linkGetTxt.getParameter(Truyen.TEN);
 			System.out.println("sMaTruyen: " + sMaTruyen);
-			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", false, 0, 0);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", null, false, 0, 0);
 			if(lst != null && !lst.isEmpty()){
 				HttpServletResponse response = getContext().getResponse();
 				response.setContentType("text/plain");
@@ -249,7 +249,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 			String sMaTruyen = linkGetEpub.getParameter(Truyen.MA_TRUYEN);
 			String sTen = linkGetEpub.getParameter(Truyen.TEN);
 			System.out.println("sMaTruyen: " + sMaTruyen);
-			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", false, 0, 0);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", null, false, 0, 0);
 			if(lst != null && !lst.isEmpty()){
 				HttpServletResponse response = getContext().getResponse();
 				response.setContentType("application/octet-stream");
@@ -284,7 +284,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 			String sMaTruyen = linkGetEpub.getParameter(Truyen.MA_TRUYEN);
 			String sTen = linkGetEpub.getParameter(Truyen.TEN);
 			System.out.println("sMaTruyen: " + sMaTruyen);
-			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", true, 0, 0);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", null, true, 0, 0);
 			if(lst != null && !lst.isEmpty()){
 				HttpServletResponse response = getContext().getResponse();
 				response.setContentType("application/octet-stream");
@@ -308,7 +308,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 		try {
 			String sMaTruyen = linkTest.getParameter(Truyen.MA_TRUYEN);
 			System.out.println("sMaTruyen: " + sMaTruyen);
-			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", true, 0, 1);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", null, true, 0, 1);
 			if(lst != null && lst.size() > 0){
 				ChuongTruyen vChuongTruyen = lst.get(0);
 				System.out.println(vChuongTruyen.getUrlgoc());

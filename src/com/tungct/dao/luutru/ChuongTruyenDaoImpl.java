@@ -71,7 +71,7 @@ public class ChuongTruyenDaoImpl implements ChuongTruyenDao{
 	}
 	
 	@Override
-	public List<ChuongTruyen> SelectByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa, boolean bSort, int nFirstRow, int nPageSize) throws Exception {
+	public List<ChuongTruyen> SelectByMaTruyenVaTuKhoa(String sMaTruyen, String sTuKhoa, List<String> lstField, boolean bSort, int nFirstRow, int nPageSize) throws Exception {
 		Criteria criteria = new Criteria();
 		if(!HelpFunction.isEmpty(sMaTruyen)){
 			criteria.and(ChuongTruyen.MA_TRUYEN).is(sMaTruyen);
@@ -82,6 +82,12 @@ public class ChuongTruyenDaoImpl implements ChuongTruyenDao{
 		Query query = new Query(criteria);
 		if(bSort){
 			query.with(new Sort(Sort.Direction.ASC, ChuongTruyen.SO_THU_TU));
+		}
+		
+		if(lstField != null && !lstField.isEmpty()){
+			for (String field : lstField) {
+				query.fields().include(field);
+			}
 		}
 		query.skip(nFirstRow);
 		query.limit(nPageSize); 

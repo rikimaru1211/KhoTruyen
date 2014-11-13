@@ -12,22 +12,22 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 	<!-- localhost  -->
-	<!-- <mongo:mongo host="localhost" port="27017" />
+	<mongo:mongo host="localhost" port="27017" />
 	
 	<mongo:db-factory id="mongoDbFactory-Truyen"
 				  mongo-ref="mongo"
                   dbname="Truyen"
                   username="Truyen"
-                  password="Truyen"/> -->
+                  password="Truyen"/>
                   
     
     <!-- remote host mongolab -->
-    <mongo:mongo host="ds047440.mongolab.com" port="47440" />
+    <!-- <mongo:mongo host="ds047440.mongolab.com" port="47440" />
     
     <mongo:db-factory id="mongoDbFactory-Truyen"
 				  mongo-ref="mongo"
                   dbname="khotruyen"
                   username="khotruyen"
-                  password="khotruyen"/>
+                  password="khotruyen"/> -->
                   
 </beans>

@@ -1,5 +1,6 @@
 package com.tungct.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -30,6 +31,7 @@ import com.tungct.dao.web.NoiDungChapterWebTruyenDaoImpl;
 import com.tungct.domain.luutru.ChuongTruyen;
 import com.tungct.domain.luutru.NguonTruyen;
 import com.tungct.domain.luutru.Truyen;
+import com.tungct.utils.HelpFunction;
 import com.tungct.web.template.HomeTemplate;
 
 @SuppressWarnings("serial")
@@ -116,7 +118,7 @@ public class DanhSachChuongView extends HomeTemplate {
 				String sMaTruyen = hfMaTruyen.getValue();
 				String sTuKhoa = tfTuKhoa.getValue();
 				try {
-					lstTruyen = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, sTuKhoa, true, nFirstRow, nPageSize);
+					lstTruyen = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, sTuKhoa, null, true, nFirstRow, nPageSize);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -212,19 +214,27 @@ public class DanhSachChuongView extends HomeTemplate {
 			}
 			
 			NoiDungChapterDao noidungchapterDao = new NoiDungChapterWebTruyenDaoImpl(vNguonTruyen.getDivtitle(), vNguonTruyen.getDivcontent());
-			List<ChuongTruyen> lstTruyen = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(matruyen, sTuKhoa, false, 0, 0);
+			List<String> lstField = new ArrayList<String>();
+			lstField.add(ChuongTruyen.SO_THU_TU);
+			lstField.add(ChuongTruyen.URL_GOC);
+			lstField.add(ChuongTruyen.MA_TRUYEN);
+			lstField.add(ChuongTruyen.TIEU_DE);
+			List<ChuongTruyen> lstTruyen = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(matruyen, sTuKhoa, lstField, false, 0, 0);
 			int nListSize = lstTruyen.size();
 			
 			if(lstTruyen != null && lstTruyen.size() > 0){
 				if(matruyen.toLowerCase().contains("truyenyy_com")){
+					HelpFunction.SetListProxy();
 					for(int i = 0; i < nListSize; ){
 						System.out.println(i);
 						ChuongTruyen cTemp = lstTruyen.get(i);
 						ChuongTruyen cUpdate = null;
-						if(cTemp.getTieude() == null || cTemp.getTieude().equals("- Chương 18: Phá Thiên")
-								|| cTemp.getTieude().equals("Chương thứ yyy: Ra đảo")){
+						if(HelpFunction.isEmpty(cTemp.getTieude()) || cTemp.getTieude().equals("- Chương 18: Phá Thiên")
+								|| cTemp.getTieude().equals("Chương thứ yyy: Ra đảo")
+								|| cTemp.getTieude().equals("One more step")){
 							try {
 								cUpdate = noidungchapterDao.GetNoiDung(cTemp.getStt(), cTemp.getUrlgoc());
+								HelpFunction.ResetProxy();
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -233,18 +243,20 @@ public class DanhSachChuongView extends HomeTemplate {
 							continue;
 						}
 						
-						if(cUpdate == null){
-							System.out.println("chap null");
-							Thread.sleep(60000);
-						} else if(cUpdate.getTieude().equals("- Chương 18: Phá Thiên") 
+//						System.out.println(cUpdate.getTieude());
+						if(cUpdate.getTieude().equals("- Chương 18: Phá Thiên") 
 								|| cUpdate.getTieude().equals("Chương thứ yyy: Ra đảo")){
-							Thread.sleep(120000);
+							HelpFunction.ChangeProxy();
+							Thread.sleep(3000);
+						} else if(cUpdate.getTieude().equals("One more step")){
+							HelpFunction.ChangeProxy();
+							Thread.sleep(2000);
 						} else {
 							cUpdate.set_id(cTemp.get_id());
 							cUpdate.setMatruyen(cTemp.getMatruyen());
 							chuongtruyenDao.update(cUpdate);
 							i++;
-							Thread.sleep(2000);
+							Thread.sleep(1000);
 						}
 					}
 				} else {

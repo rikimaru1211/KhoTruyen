@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.jsoup.Jsoup;
@@ -23,6 +24,32 @@ public class HelpFunction {
 //	    java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
 //	    return s.hasNext() ? s.next() : "";
 //	}
+	
+	public static List<String> ListProxy;
+	public static int current = 0;
+	public static void SetListProxy(){
+		//String[] arrProxy = {"203.172.209.230:8080","202.143.173.67:3128","113.160.120.204:8080"};
+		String[] arrProxy = {/*"203.172.209.230:8080",*//*"182.93.224.222:8080",*/"182.93.225.126:8080","182.93.234.22:8080","202.143.173.67:3128"};
+		ListProxy = Arrays.asList(arrProxy);
+	}
+	public static void ChangeProxy(){
+		SetProxy(ListProxy.get(current));
+		System.out.println(ListProxy.get(current));
+		current += 1;
+		current = current % ListProxy.size();
+	}
+	public static void SetProxy(String sProxy){
+		String[] aProxy = sProxy.split(":");
+		SetProxy(aProxy[0], aProxy[1]);
+	}
+	public static void SetProxy(String sHost, String sPost){
+		System.setProperty("http.proxyHost", sHost);
+		System.setProperty("http.proxyPort", sPost);
+	}
+	public static void ResetProxy(){
+		System.getProperties().remove("http.proxyHost");
+		System.getProperties().remove("http.proxyPort");
+	}
 
 	public static String slurp(final InputStream is, final int bufferSize)
 	{
