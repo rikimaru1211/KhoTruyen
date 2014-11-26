@@ -59,7 +59,10 @@ public class DanhSachChuongView extends HomeTemplate {
 		nguontruyenDao = (NguonTruyenDaoImpl) appContext.getBean("NguonTruyen-Dao");
 		
 		String sMaTruyen = getContext().getRequestParameter(ChuongTruyen.MA_TRUYEN);
-		hfMaTruyen.setValue(sMaTruyen);
+		if(!HelpFunction.isEmpty(sMaTruyen)){
+			form.removeState(getContext());
+			hfMaTruyen.setValue(sMaTruyen);
+		}
 		
 		addControl(form);
 		addControl(table);

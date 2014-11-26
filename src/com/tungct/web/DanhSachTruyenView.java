@@ -219,7 +219,7 @@ public class DanhSachTruyenView extends HomeTemplate {
 			String sMaTruyen = linkGetTxt.getParameter(Truyen.MA_TRUYEN);
 			String sTen = linkGetTxt.getParameter(Truyen.TEN);
 			System.out.println("sMaTruyen: " + sMaTruyen);
-			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", null, false, 0, 0);
+			List<ChuongTruyen> lst = chuongtruyenDao.SelectByMaTruyenVaTuKhoa(sMaTruyen, "", null, true, 0, 0);
 			if(lst != null && !lst.isEmpty()){
 				HttpServletResponse response = getContext().getResponse();
 				response.setContentType("text/plain");
