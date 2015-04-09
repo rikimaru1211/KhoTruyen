@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <menu>	
-	<menu label="Nhập liệu" path="/web/">
+	<menu label="Thao tác" path="/web/">
 		<menu label="Test URL" path="/web/test-url.htm"/>
+	</menu>
+	<menu label="Nhập liệu" path="/web/">
 		<menu label="Từ file" path="/web/nhap-lieu-tu-file.htm"/>
 	</menu>
 	<menu label="Hiển thị" path="/web/">

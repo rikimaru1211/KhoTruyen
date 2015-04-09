@@ -54,6 +54,7 @@ public class DanhSachLinkTrongSelectorDaoImpl implements DanhSachLinkChapterDao{
 				bContinue = false;
 				
 				Document doc = Jsoup.connect(url).get();
+//				System.out.println(doc);
 				Elements lstchapter = doc.select(SelectorListChapter);
 				if(lstchapter != null) {
 					Elements lstLink = lstchapter.select("a");

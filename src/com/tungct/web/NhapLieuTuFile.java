@@ -71,10 +71,11 @@ public class NhapLieuTuFile extends HomeTemplate {
 				String sNoiDung = "";
 				int stt = 1;
 				while((sLine = reader.readLine()) != null){
+					sLine = sLine.trim();
 					if(HelpFunction.isEmpty(sLine))
 						continue;
 					String sLineSearch = sLine.toLowerCase();
-					if(sLineSearch.contains("quyển thứ") || sLineSearch.contains("quyển thứ") || sLineSearch.startsWith("chương")) {
+					if(/*sLineSearch.contains("quyển thứ") || sLineSearch.contains("quyển thứ") || */sLineSearch.startsWith("chương") || (sLineSearch.startsWith("đệ") && sLineSearch.contains("chương")) ) {
 						if(!HelpFunction.isEmpty(sTieuDe) && !HelpFunction.isEmpty(sNoiDung)) {
 							vChuong = new ChuongTruyen();
 							vChuong.setMatruyen("TuFile_" + sTen);
