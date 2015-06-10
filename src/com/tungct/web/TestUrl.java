@@ -19,8 +19,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.tungct.dao.luutru.ChuongTruyenDao;
 import com.tungct.dao.luutru.ChuongTruyenDaoImpl;
-import com.tungct.dao.luutru.NguonTruyenDao;
-import com.tungct.dao.luutru.NguonTruyenDaoImpl;
 import com.tungct.dao.luutru.TruyenDao;
 import com.tungct.dao.luutru.TruyenDaoImpl;
 import com.tungct.domain.luutru.ChuongTruyen;
